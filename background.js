@@ -4,6 +4,7 @@ window.requests=[];
 window.bodys=[];
 window.targetIds=[];
 window.pageURL="";
+window.title = "";   
 window.clearkey="";
 
 chrome.storage.local.get("isBlock", (value) => {
@@ -62,6 +63,7 @@ chrome.runtime.onMessage.addListener(
             case "PSSH":
                 window.psshs.push(request.text)
                 window.pageURL=sender.tab.url
+                window.title = sender.tab.title
                 window.targetIds=[sender.tab.id, sender.frameId]
                 break;
             case "CLEARKEY":

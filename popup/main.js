@@ -1,6 +1,7 @@
 let psshs=chrome.extension.getBackgroundPage().psshs;
 let requests=chrome.extension.getBackgroundPage().requests;
 let pageURL=chrome.extension.getBackgroundPage().pageURL;
+let title=chrome.extension.getBackgroundPage().title;
 let targetIds=chrome.extension.getBackgroundPage().targetIds;
 let clearkey=chrome.extension.getBackgroundPage().clearkey;
 
@@ -55,6 +56,7 @@ async function autoSelect(){
     userInputs["license"]=0;
     document.getElementById("license").value=requests[0]['url'];
     document.getElementById('pssh').value=psshs[0];
+    document.getElementById('title').value = title;
     
     let selectRules = await fetch("/selectRules.conf").then((r)=>r.text());
     //Remove blank lines, comment-outs, and trailing spaces at the end of lines
