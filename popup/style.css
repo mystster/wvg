@@ -77,7 +77,7 @@ body {
     justify-self: center;
 }
 
-#chooserContainer {
+#chooserContainer, #settings {
     color: white;
 }
 

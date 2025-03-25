@@ -31,5 +31,11 @@
         "default_title": "Widevine Decrypter"
     },
     "web_accessible_resources": ["inject.js"],
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "wvg-fork@mystster",
+            "strict_min_version": "58.0"
+        }
+    }
 }

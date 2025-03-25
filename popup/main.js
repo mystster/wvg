@@ -1,3 +1,5 @@
+import { SettingsManager } from "./settingManager.js";
+
 let psshs=chrome.extension.getBackgroundPage().psshs;
 let requests=chrome.extension.getBackgroundPage().requests;
 let pageURL=chrome.extension.getBackgroundPage().pageURL;
@@ -87,3 +89,42 @@ if (clearkey) {
     document.getElementById('result').addEventListener("click", copyResult);
     autoSelect();
 }
+
+document.addEventListener('DOMContentLoaded', async function () {
+    use_shaka.checked = await SettingsManager.getUseShakaPackager();
+    set_filename_from_title.checked = await SettingsManager.getSetFilenameFromTitle();
+    use_select_video.checked = await SettingsManager.getUseSelectVideo();
+    select_video_param.value = await SettingsManager.getSelectVideoParam();
+    use_select_audio.checked = await SettingsManager.getUseSelectAudio();
+    select_audio_param.value = await SettingsManager.getSelectAudioParam();
+});
+
+const use_shaka = document.getElementById('use-shaka');
+use_shaka.addEventListener('change', async function (){
+    await SettingsManager.saveUseShakaPackager(use_shaka.checked);
+});
+
+const set_filename_from_title = document.getElementById('set-filename-from-title');
+set_filename_from_title.addEventListener('change', async function () {
+    await SettingsManager.saveSetFilenameFromTitle(set_filename_from_title.checked);
+});
+
+const use_select_video = document.getElementById('use-select-video');
+use_select_video.addEventListener('change', async function (){
+    await SettingsManager.saveUseSelectVideo(use_select_video.checked);
+});
+
+const select_video_param = document.getElementById('select-video-param');
+select_video_param.addEventListener('input', async function (event) {
+    await SettingsManager.saveSelectVideoParam(select_video_param.value);
+});
+
+const use_select_audio = document.getElementById('use-select-audio');
+use_select_audio.addEventListener('change', async function () {
+    await SettingsManager.saveUseSelectAudio(use_select_audio.checked);
+});
+
+const select_audio_param = document.getElementById('select-audio-param');
+select_audio_param.addEventListener('input', async function (event) {
+    await SettingsManager.saveSelectAudioParam(select_audio_param.value);
+});
