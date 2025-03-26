@@ -44,7 +44,7 @@ body {
     justify-self: center;
 }
 
-#pssh, #license, #title, #schemeSelect {
+#pssh, #license, #title, #manifest, #command, #schemeSelect {
     width: 80%;
     justify-self: center;
 }

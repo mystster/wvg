@@ -8,6 +8,11 @@ let targetIds=chrome.extension.getBackgroundPage().targetIds;
 let clearkey=chrome.extension.getBackgroundPage().clearkey;
 let manifests = chrome.extension.getBackgroundPage().manifests;
 
+async function createCommand() {
+    const header_string = Object.entries(JSON.parse(requests[userInputs['license']]['headers'])).filter(([key, value]) => key != 'Host').map(([key, value]) => `-H "${key}: ${value.replace(/"/g, "'")}"`).join(' ');
+    return `N_m3u8DL-RE "${manifest_list.value}" ${header_string} ${document.getElementById('result').value.split('\n').filter(key => key != '').map(key => `--key ${key}`).join(' ')} ${await SettingsManager.getUseShakaPackager() ? "--use-shaka-packager " : ""}-M format=mkv${await SettingsManager.getSetFilenameFromTitle() && title ? " --save-name ".concat('"', title, '"') : ""}${await SettingsManager.getUseSelectVideo() ? " --select-video ".concat(await SettingsManager.getSelectVideoParam()) : ""}${await SettingsManager.getUseSelectAudio() ? " --select-audio ".concat(await SettingsManager.getSelectAudioParam()) : ""}`;
+}
+
 async function guess(){
     //Be patient!
     document.body.style.cursor = "wait";
@@ -39,7 +44,9 @@ async function guess(){
 
     //All Done!
     document.body.style.cursor = "auto";
-    document.getElementById("guess").disabled=false
+    document.getElementById("guess").disabled = false
+    command.value = await createCommand();
+    command.disabled = false;
 }
 
 function copyResult(){
@@ -129,6 +136,9 @@ const select_audio_param = document.getElementById('select-audio-param');
 select_audio_param.addEventListener('input', async function (event) {
     await SettingsManager.saveSelectAudioParam(select_audio_param.value);
 });
+
+const command = document.getElementById('command');
+command.disabled = true;
 const manifest_list = document.getElementById('manifest');
 manifest_list.addEventListener('change', async () => {
     command.value = await createCommand();
