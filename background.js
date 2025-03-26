@@ -6,6 +6,7 @@ window.targetIds=[];
 window.pageURL="";
 window.title = "";   
 window.clearkey="";
+window.manifests = [];
 
 chrome.storage.local.get("isBlock", (value) => {
     window.isBlock = value.isBlock;
@@ -69,6 +70,10 @@ chrome.runtime.onMessage.addListener(
             case "CLEARKEY":
                 window.clearkey=request.text
                 break;
+            case "MANIFEST":
+                window.manifests.push(JSON.parse(request.text))
+                break;
+
         }
     }
 );

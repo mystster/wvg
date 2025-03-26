@@ -6,6 +6,7 @@ let pageURL=chrome.extension.getBackgroundPage().pageURL;
 let title=chrome.extension.getBackgroundPage().title;
 let targetIds=chrome.extension.getBackgroundPage().targetIds;
 let clearkey=chrome.extension.getBackgroundPage().clearkey;
+let manifests = chrome.extension.getBackgroundPage().manifests;
 
 async function guess(){
     //Be patient!
@@ -127,4 +128,12 @@ use_select_audio.addEventListener('change', async function () {
 const select_audio_param = document.getElementById('select-audio-param');
 select_audio_param.addEventListener('input', async function (event) {
     await SettingsManager.saveSelectAudioParam(select_audio_param.value);
+});
+const manifest_list = document.getElementById('manifest');
+manifest_list.addEventListener('change', async () => {
+    command.value = await createCommand();
+});
+manifests.forEach(element => {
+    const option = new Option(`[${element.type}] ${element.url}`, element.url, element.type.startsWith('DASH'), element.type.startsWith('DASH'));
+    manifest_list.add(option);
 });

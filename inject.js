@@ -98,16 +98,20 @@ window.fetch = function() {
                     if (manifest_type) {
                         if (arguments.length === 1) {
                             console.log('fetch1 manifest', arguments[0].url, manifest_type);
-                            // emitAndWaitForResponse("MANIFEST", JSON.stringify({
-                            //     "url": arguments[0].url,
-                            //     "type": manifest_type,
-                            // }));
+                            document.dispatchEvent(new CustomEvent('manifest', {
+                                detail: JSON.stringify({
+                                    "url": arguments[0].url,
+                                    "type": manifest_type,
+                                })
+                            }));
                         } else if (arguments.length === 2) {
                             console.log('fetch2 manifest', arguments[0], manifest_type);
-                            // emitAndWaitForResponse("MANIFEST", JSON.stringify({
-                            //     "url": arguments[0],
-                            //     "type": manifest_type,
-                            // }));
+                            document.dispatchEvent(new CustomEvent('manifest', {
+                                detail: JSON.stringify({
+                                    "url": arguments[0],
+                                    "type": manifest_type,
+                                })
+                            }));
                         }
                     }
                     resolve(response);
@@ -161,10 +165,12 @@ XMLHttpRequest.prototype.send = function(postData) {
                 const manifest_type = Evaluator.getManifestType(body);
                 if (manifest_type) {
                     console.log('send manifest', this.responseURL, manifest_type);
-                    // emitAndWaitForResponse("MANIFEST", JSON.stringify({
-                    //     "url": this.responseURL,
-                    //     "type": manifest_type,
-                    // }));
+                    document.dispatchEvent(new CustomEvent('manifest', {
+                        detail: JSON.stringify({
+                            "url": this.responseURL,
+                            "type": manifest_type,
+                        })
+                    }));
                 }
             }
         }
