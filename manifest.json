@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
     "name": "Widevine L3 Decrypter",
-    "version": "241029.1",
-    "version_name": "4316530",
+    "version": "250327.1",
+    "version_name": "4316531",
     "icons": {
         "128": "icon.png"
     },
