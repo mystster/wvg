@@ -95,6 +95,7 @@ if (clearkey) {
     document.getElementById('home').style.display = 'grid';
     document.getElementById('guess').addEventListener("click", guess);
     document.getElementById('result').addEventListener("click", copyResult);
+    document.getElementById('command').addEventListener("click", copyResult);
     autoSelect();
 }
 
@@ -147,3 +148,4 @@ manifests.forEach(element => {
     const option = new Option(`[${element.type}] ${element.url}`, element.url, element.type.startsWith('DASH'), element.type.startsWith('DASH'));
     manifest_list.add(option);
 });
+
